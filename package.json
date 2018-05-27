@@ -6,8 +6,8 @@
   "scripts": {
     "prebuild": "rm -rf dist/*",
     "build": "babel -d ./dist ./src",
-    "serve": "node dist/index.js",
-    "start": "nodemon lib/index.js --exec babel-node"
+    "start": "node dist/index.js",
+    "dev": "nodemon lib/index.js --exec babel-node"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
