@@ -1,11 +1,11 @@
-import express from 'express';
-import jwt from 'jsonwebtoken';
-import jwtCheck from 'express-jwt';
+import { Request, Response, Errback, NextFunction, Router } from 'express';
+import * as jwt from 'jsonwebtoken';
+import * as jwtCheck from 'express-jwt';
 
-import User from './models/user';
-import Note from './models/note';
+import User from './models/User';
+import Note from './models/Note';
 
-const router = express.Router();
+const router: Router = Router();
 const TOKEN_SECRET = 'topchek';
 
 router.get('/', (req, res) => {
@@ -16,15 +16,17 @@ router.get('/user', jwtCheck({ secret: TOKEN_SECRET }), async (req, res) => {
   if (req.user._id) {
     try {
       const user = await User.findById(req.user._id).select('-password');
-      const notes = await user.getNotes();
 
-      console.log('/user', { ...user._doc, notes });
-      res.json({ ...user._doc, notes });
+      if (user) {
+        const notes = await user.getNotes();
+
+        res.json({ ...user, notes });
+      } else {
+        throw new Error('UnauthorizedError');
+      }
     } catch (e) {
-      console.log('/user', e);
+      throw new Error(e);
     }
-
-
   } else {
     throw new Error('UnauthorizedError');
   }
@@ -126,13 +128,13 @@ router.delete('/notes/:id', async (req, res) => {
     const note = await Note.findByIdAndRemove(req.params.id);
     console.log('deleted note', note);
 
-    res.json(note)
+    res.json(note);
   } catch (e) {
     res.json({ error: e });
   }
 });
 
-router.use((err, req, res, next) => {
+router.use((err: Errback, req: Request, res: Response, next: NextFunction) => {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({ error: 'Invalid token...' });
   }

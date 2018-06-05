@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import * as mongoose from 'mongoose';
 
 mongoose.connect('mongodb://user:pass@ds121309.mlab.com:21309/blog');
 const db = mongoose.connection;
