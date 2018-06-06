@@ -1,4 +1,4 @@
-import { Schema, Document, Types, model } from 'mongoose';
+import { Schema, Document, model, Model } from 'mongoose';
 
 const NoteSchema: Schema = new Schema(
   {
@@ -26,11 +26,14 @@ export interface INote extends Document {
   title: string;
   text: string;
 
-  author: Types.ObjectId;
+  author: Schema.Types.ObjectId;
 
   createdAt: Date;
   updatedAt: Date;
 }
 
+export interface INoteModel extends Model<INote> {}
+
 const Note = model<INote>('Note', NoteSchema);
+
 export default Note;

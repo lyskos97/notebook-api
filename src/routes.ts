@@ -20,7 +20,8 @@ router.get('/user', jwtCheck({ secret: TOKEN_SECRET }), async (req, res) => {
       if (user) {
         const notes = await user.getNotes();
 
-        res.json({ ...user, notes });
+        // @ts-ignore
+        res.json({ ...user._doc, notes });
       } else {
         throw new Error('UnauthorizedError');
       }

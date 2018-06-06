@@ -1,7 +1,7 @@
-import { model, Document, Schema, Types, Model } from 'mongoose';
+import { model, Document, Schema, Model } from 'mongoose';
 import { hashSync, compareSync } from 'bcrypt';
 
-import Note, { INote } from './Note';
+import Note, { INoteModel } from './Note';
 
 const userSchema: Schema = new Schema(
   {
@@ -25,7 +25,7 @@ interface IUser extends Document {
   password: string;
 
   validatePassword(rawPassword: string): boolean;
-  getNotes(): [INote | null];
+  getNotes(): [INoteModel | null];
 }
 
 userSchema.pre<IUser>('save', function(next) {
@@ -41,5 +41,6 @@ userSchema.methods.getNotes = function() {
   return Note.find({ author: this._id }).select('-author -createdAt');
 };
 
-const User = model<IUser>('User', userSchema);
+const User: Model<IUser> = model<IUser>('User', userSchema);
+
 export default User;

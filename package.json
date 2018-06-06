@@ -4,16 +4,23 @@
   "main": "src/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node ./src/index",
+    "start": "node ./dist/index",
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
     "dev": "nodemon ./src/index --ext ts --exec ts-node"
   },
   "dependencies": {
+    "@types/express-graphql": "^0.6.1",
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
+    "express-graphql": "^0.6.12",
     "express-jwt": "^5.3.1",
+    "graphql": "^0.13.2",
+    "graphql-tools": "^3.0.2",
     "jsonwebtoken": "^8.2.1",
+    "merge-graphql-schemas": "^1.5.1",
     "mongoose": "^5.1.2"
   },
   "devDependencies": {
