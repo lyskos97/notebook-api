@@ -1,8 +1,10 @@
+import * as dotenv from 'dotenv';
 import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as graphqlHTTP from 'express-graphql';
 
+dotenv.config();
 import router from './routes';
 import schema from './schema';
 import './db';

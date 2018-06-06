@@ -1,6 +1,9 @@
 import * as mongoose from 'mongoose';
 
-mongoose.connect('mongodb://user:pass@ds121309.mlab.com:21309/blog');
+const uri = process.env.MONGO_URI || 'null';
+
+mongoose.connect(uri);
+
 const db = mongoose.connection;
 
 db.once('open', () => {
