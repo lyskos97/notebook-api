@@ -1,13 +1,19 @@
 {
-  "name": "notebook-rest",
+  "name": "notebook-api",
   "version": "0.1.0",
-  "main": "src/index.js",
+  "main": "src/index.ts",
+  "private": true,
+  "author": {
+    "email": "lyskos97@gmail.com",
+    "name": "Konstantin Lyssenko",
+    "url": "https://github.com/lyskos97"
+  },
   "license": "MIT",
   "scripts": {
-    "start": "node ./dist/index",
+    "start": "node ./dist/index.ts",
     "prebuild": "rm -rf dist",
     "build": "tsc",
-    "dev": "nodemon ./src/index --ext ts --exec ts-node"
+    "dev": "nodemon ./src/index.ts --exec ts-node"
   },
   "dependencies": {
     "@types/express-graphql": "^0.6.1",
